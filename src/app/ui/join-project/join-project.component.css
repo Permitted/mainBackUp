@@ -1,0 +1,104 @@
+/* Form */
+
+.answerPoint{
+  margin-top: 150px;
+}
+
+.headAnswer{
+  margin-bottom: 60px;
+  margin-top: 10px;
+}
+
+.headAnswers{
+  margin-bottom: 20px;
+  margin-top: 80px;
+}
+
+.center {
+  margin: auto;
+}
+
+/* Question Header */
+.question-header {
+  background-color: #607D8B;
+}
+
+/* Font setup */
+h6 {
+  font-weight: bold;
+}
+
+h4 {
+  font-weight: bold;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+h5 {
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+
+/* Form margin section */
+.form-group {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.form-control {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+/* Hr specs */
+.texter {
+  background-color: #42A5F5;
+}
+
+.multier {
+  background-color: #7E57C2;
+}
+
+.rater {
+  background-color: #ef5350;
+}
+
+.projectSelect {
+  background-color: black;
+  width: 30%;
+
+}
+
+.projectSelectHeader {
+  background-color: black;
+}
+
+/* Button arange */
+
+.spaceBt {
+  margin-right: 10px;
+}
+
+.goTop {
+  position: fixed;
+  bottom: 0px;
+  right: 30px;
+}
+
+/* Multiple Lable */
+.multipleaLabel {
+  margin-bottom: 8px;
+}
+
+/* Table */
+
+.upMe {
+  margin-top: 40px;
+}

@@ -1,0 +1,219 @@
+<app-nav-bar></app-nav-bar>
+<br>
+
+<div class="container test1" id="top">
+  <h2 class="text-center"> Project Form Generator </h2>
+  <form [formGroup]="QuestionsForm" (ngSubmit)="onSubmit(projectName.value)">
+    <div class="form-group">
+      <label>> Project Name</label>
+      <input type="text" class="form-control" formControlName="projectName" placeholder="Project Name" #projectName
+        required>
+    </div>
+    <div class="form-group">
+      <label>> Add Text Questions</label>
+      <input type="text" class="form-control" formControlName="textNum" placeholder="Text Question Number" #testNum
+        required>
+    </div>
+    <div class="form-group">
+      <label>> Add Multiple Choice Questions </label>
+      <input type="text" class="form-control" formControlName="mutliNum" placeholder="Multiple Choice Question Number"
+        #multiNum required>
+    </div>
+    <div class="form-group">
+      <label>> Add Rate Questions</label>
+      <input type="text" class="form-control" formControlName="rateNum" placeholder="Rate Question Number" #rateNum
+        required>
+    </div>
+    <button class="btn btn-primary spaceBt" type="button"
+      (click)="getNum(testNum.value, multiNum.value, rateNum.value, projectName.value)">Create</button>
+    <h4 *ngIf="success" class="text-center">Form Questions
+      <hr class="question-header">
+    </h4>
+
+    <div *ngIf="1 <= textQN">
+      <div class="form-group">
+        <label>> Text Question 1</label>
+        <input type="text" formControlName="textQuestion1" class="form-control">
+        <hr class="texter">
+      </div>
+    </div>
+
+    <div *ngIf="2 <= textQN">
+      <div class="form-group">
+        <label>> Text Question 2</label>
+        <input type="text" formControlName="textQuestion2" class="form-control">
+        <hr class="texter">
+      </div>
+    </div>
+
+    <div *ngIf="3 <= textQN">
+      <div class="form-group">
+        <label>> Text Question 3</label>
+        <input type="text" formControlName="textQuestion3" class="form-control">
+        <hr class="texter">
+      </div>
+    </div>
+
+    <div *ngIf="4 <= textQN">
+      <div class="form-group">
+        <label>> Text Question 4</label>
+        <input type="text" formControlName="textQuestion4" class="form-control">
+        <hr class="texter">
+      </div>
+    </div>
+
+    <div *ngIf="5 <= textQN">
+      <div class="form-group">
+        <label>> Text Question 5</label>
+        <input type="text" formControlName="textQuestion5" class="form-control">
+        <hr class="texter">
+      </div>
+    </div>
+
+    <div *ngIf="1 <= multiQN">
+      <div class="form-group">
+        <label>> Multiple Choice Question 1</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="multiQuestion1" class="form-control" />
+        <h6>Option1:</h6><input type="text" formControlName="multiQuestion2" class="form-control" />
+        <h6>Option2:</h6><input type="text" formControlName="multiQuestion3" class="form-control" />
+        <h6>Option3:</h6><input type="text" formControlName="multiQuestion4" class="form-control" />
+        <h6>Option4:</h6><input type="text" formControlName="multiQuestion5" class="form-control" />
+        <hr class="multier">
+      </div>
+    </div>
+
+    <div *ngIf="2 <= multiQN">
+      <div class="form-group">
+        <label>> Multiple Choice Question 2</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="multiQuestion6" class="form-control" />
+        <h6>Option1:</h6><input type="text" formControlName="multiQuestion7" class="form-control" />
+        <h6>Option2:</h6><input type="text" formControlName="multiQuestion8" class="form-control" />
+        <h6>Option3:</h6><input type="text" formControlName="multiQuestion9" class="form-control" />
+        <h6>Option4:</h6><input type="text" formControlName="multiQuestion10" class="form-control" />
+        <hr class="multier">
+      </div>
+    </div>
+
+    <div *ngIf="3 <= multiQN">
+      <div class="form-group">
+        <label>> Multiple Choice Question 3</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="multiQuestion11" class="form-control" />
+        <h6>Option1:</h6><input type="text" formControlName="multiQuestion12" class="form-control" />
+        <h6>Option2:</h6><input type="text" formControlName="multiQuestion13" class="form-control" />
+        <h6>Option3:</h6><input type="text" formControlName="multiQuestion14" class="form-control" />
+        <h6>Option4:</h6><input type="text" formControlName="multiQuestion15" class="form-control" />
+        <hr class="multier">
+      </div>
+    </div>
+
+    <div *ngIf="1 <= rateQN">
+      <div class="form-group">
+        <label>> Rate Question 1</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="rateQuestion1" class="form-control" />
+        <div class="row">
+          <div class="col">
+            <h6>Rate1:</h6><input type="text" formControlName="rateQuestion2" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate2:</h6><input type="text" formControlName="rateQuestion3" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate3:</h6><input type="text" formControlName="rateQuestion4" class="form-control" />
+          </div>
+        </div>
+        <hr class="rater">
+      </div>
+    </div>
+
+    <div *ngIf="2 <= rateQN">
+      <div class="form-group">
+        <label>> Rate Question 2</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="rateQuestion5" class="form-control" />
+        <div class="row">
+          <div class="col">
+            <h6>Rate1:</h6><input type="text" formControlName="rateQuestion6" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate2:</h6><input type="text" formControlName="rateQuestion7" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate3:</h6><input type="text" formControlName="rateQuestion8" class="form-control" />
+          </div>
+        </div>
+        <hr class="rater">
+      </div>
+    </div>
+
+    <div *ngIf="3 <= rateQN">
+      <div class="form-group">
+        <label>> Rate Question 3</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="rateQuestion9" class="form-control" />
+        <div class="row">
+          <div class="col">
+            <h6>Rate1:</h6><input type="text" formControlName="rateQuestion10" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate2:</h6><input type="text" formControlName="rateQuestion11" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate3:</h6><input type="text" formControlName="rateQuestion12" class="form-control" />
+          </div>
+        </div>
+        <hr class="rater">
+      </div>
+    </div>
+
+    <div *ngIf="4 <= rateQN">
+      <div class="form-group">
+        <label>> Rate Question 4</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="rateQuestion13" class="form-control" />
+        <div class="row">
+          <div class="col">
+            <h6>Rate1:</h6><input type="text" formControlName="rateQuestion14" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate2:</h6><input type="text" formControlName="rateQuestion15" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate3:</h6><input type="text" formControlName="rateQuestion16" class="form-control" />
+          </div>
+        </div>
+        <hr class="rater">
+      </div>
+    </div>
+
+    <div *ngIf="5 <= rateQN">
+      <div class="form-group">
+        <label>> Rate Question 5</label>
+        <hr>
+        <h6>Question:</h6><input type="text" formControlName="rateQuestion17" class="form-control" />
+        <div class="row">
+          <div class="col">
+            <h6>Rate1:</h6><input type="text" formControlName="rateQuestion18" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate2:</h6><input type="text" formControlName="rateQuestion19" class="form-control" />
+          </div>
+          <div class="col">
+            <h6>Rate3:</h6><input type="text" formControlName="rateQuestion20" class="form-control" />
+          </div>
+        </div>
+        <hr class="rater">
+      </div>
+    </div>
+
+
+    <button class="btn btn-primary" type="submit">Sumbit Form</button>
+  </form>
+</div>
+<hr>
+<br>
+<button class="btn btn-info goTop" [ngx-scroll-to]="'#top'"><i class="fas fa-arrow-up"></i></button>
+

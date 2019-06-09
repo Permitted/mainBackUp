@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light custom-nav">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">
+    <img src="../../../assets/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    STS
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav ml-auto mt-2">
+      <li class="nav-item">
+        <a class="nav-link custom-navlink" routerLink="/HomePage" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-navlink" routerLink="/CreateProject" routerLinkActive="active">Create Project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-navlink" routerLink="/JoinProject" routerLinkActive="active">Join Project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-navlink" routerLink="/Projects" routerLinkActive="active">Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-navlink" routerLink="/AdminPanel" routerLinkActive="active">Panel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link  custom-navlink" routerLink="/UserProfile" routerLinkActive="active">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-logout" routerLink="/UserRegister" (click)="AUTHService.logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>

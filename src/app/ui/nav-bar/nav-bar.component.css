@@ -1,0 +1,13 @@
+.navbar {
+    font-size: 18px;
+    font-weight: bold;
+    background: rgb(0, 0, 0,0);
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 2px solid #d6d6d6;
+    box-shadow: 0 0 4px rgba(0,0,0,.1);	
+}
+
+.custom-logout {
+    color:#b71c1c !important;
+}

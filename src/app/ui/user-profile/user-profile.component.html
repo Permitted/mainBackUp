@@ -1,0 +1,138 @@
+<app-nav-bar></app-nav-bar>
+<div class="container ">
+  <h3 class="headPro text-center">My Profile</h3>
+  <hr class="red">
+</div>
+<!-- Profile Table Start Point -->
+<div class="container upMe">
+  <div class="table table-hover">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h3>Profile Details</h3>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let user of userInfo | async ; let i = index">
+      <table class="table table-hover">
+        <thead>
+          <!-- Profile Details Specifier-->
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Update Name</th>
+            <th class="text-center">Update Surname</th>
+            <th class="text-center">Update Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Profile Details -->
+          <tr>
+            <th>{{user.info.name}}</th>
+            <th>{{user.info.surname}}</th>
+            <th>{{user.info.age}}</th>
+            <th class="text-center">{{user.uid}}</th>
+            <td class="text-center">
+              <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"
+                (click)="setAction('name')"> <i class="fas fa-edit"></i> </button>
+            </td>
+            <td class="text-center">
+              <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"
+                (click)="setAction('surname')"> <i class="fas fa-edit"></i> </button>
+            </td>
+            <td class="text-center">
+              <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"
+                (click)="setAction('age')"> <i class="fas fa-edit"></i> </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Profile Table End Point -->
+
+<hr class="blue container">
+
+<!-- Table of Projects -->
+<div class="container upMe">
+  <div class="table table-hover">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h3>My Projects</h3>
+        </div>
+        <div class="col-sm-4">
+          <div class="search-box">
+            <input type="text" class="form-control" placeholder="Search&hellip;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let project of allProjects | async ; let i = index">
+      <table class="table table-hover">
+        <thead>
+          <!-- Project Details Specifier-->
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Text Questions</th>
+            <th>Multiple Choice Questions</th>
+            <th>Rate Questions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Project Details -->
+          <tr class="table-primary">
+            <th>{{ i+1 }}</th>
+            <th>{{ project.projectName }}</th>
+            <th *ngIf="project.textNum == null">0</th>
+            <th *ngIf="project.textNum != null">{{  project.textNum  }}</th>
+            <th *ngIf="project.mutliNum == null">0</th>
+            <th *ngIf="project.mutliNum != null">{{ project.mutliNum  }}</th>
+            <th *ngIf="project.rateNum == null">0</th>
+            <th *ngIf="project.rateNum != null">{{ project.rateNum  }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Table of Projects End Point-->
+
+
+
+<!-- Update Dialog Start Point -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update {{ actionName }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1">New {{ actionName }}</label>
+            <input type="text" class="form-control" placeholder="Enter {{ actionName }}" #updater required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <input *ngIf="actionName == 'name'" type="button" value="Update Name" class="btn btn-primary"
+            (click)="updateName(updater.value)">
+          <input *ngIf="actionName == 'surname'" type="button" value="Update Surname" class="btn btn-primary"
+            (click)="updateSurname(updater.value)">
+          <input *ngIf="actionName == 'age'" type="button" value="Update Age" class="btn btn-primary"
+            (click)="updateAge(updater.value)">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Update Dialog Start Point -->

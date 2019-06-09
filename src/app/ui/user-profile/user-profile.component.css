@@ -1,0 +1,39 @@
+.headPro {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.sectioner {
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+h5 {
+  font-weight: bold;
+}
+
+.headLow {
+  font-weight: bold;
+}
+
+.red {
+  background-color: #f44336;
+}
+
+.blue {
+  background-color: #2196F3;
+  margin-top:40px;
+  margin-bottom:40px;
+}
+
+.grey{
+  background-color: #F5F5F5;
+}
+
+
+.upMe{
+    margin-top:30px;
+}
