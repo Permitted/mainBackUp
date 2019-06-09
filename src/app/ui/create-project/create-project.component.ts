@@ -24,9 +24,9 @@ export class CreateProjectComponent implements OnInit {
 
   // Values
   public userID: string;  // User ID
-  textQN = '';  // Text question number
-  multiQN = ''; // Multiple choice question number
-  rateQN = '';  // Rate question number
+  textQN: any = '0';  // Text question number
+  multiQN: any = '0'; // Multiple choice question number
+  rateQN: any = '0';  // Rate question number
   projectName = '';  // Project name
   success = false; // Creation checker
 
@@ -100,7 +100,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   // Get the number of questions
-  getNum(Tnum: string, Mnum: string, Rnum: string) {
+  getNum(Tnum: string, Mnum: string, Rnum: string, Pnam: string) {
     this.textQN = Tnum;
     this.multiQN = Mnum;
     this.rateQN = Rnum;
