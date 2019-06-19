@@ -12,6 +12,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 // User
 import { User } from './user';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth, // fireAuth
     private router: Router, // Router
-    private afs: AngularFirestore // Firestore
+    private afs: AngularFirestore, // Firestore,
+    private toastr: ToastrService
   ) {
     // Checks user value for changes & auth
     this.user = this.afAuth.authState.pipe(
@@ -37,15 +39,17 @@ export class AuthService {
   }
 
   // User email-password signup
-  signup(email: string, password: string) {
+  signup(email: string, password: string, displayName: string) {
     this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
         console.log('Success!', value);
         this.router.navigate(['/']);
-        return this.updateUserData(value.user); // User data created with update
+        this.toastr.success('Success');
+        return this.updateUserData(value.user, displayName); // User data created with update
       })
       .catch(err => {
+        this.toastr.error('Error', 'Toastr fun!');
         console.log('Something went wrong:', err.message);
       });
   }
@@ -56,8 +60,10 @@ export class AuthService {
       .then(value => {
         this.router.navigate(['/HomePage']);
         console.log('Nice, it worked!');
+        this.toastr.success('Success');
       })
       .catch(err => {
+        this.toastr.error('Error');
         console.log('Something went wrong:', err.message);
       });
   }
@@ -99,7 +105,7 @@ export class AuthService {
   }
 
   // User update
-  private updateUserData(user: User) {
+  private updateUserData(user: User, displayNamer: string) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -107,7 +113,7 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: displayNamer,
       role: {
         staff: true,
         manager: false,

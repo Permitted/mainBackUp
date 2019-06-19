@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 // Firestore
-import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/firestore';
-import {  AngularFireList  } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 // Form Builder
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-// Auth
-import { AngularFireAuth } from '@angular/fire/auth';
+import { ToastrService } from 'ngx-toastr';
 
 
 
-
-
-export interface Item { questions: string; }
+export interface Pcreator { projectNameHolder: string; hostID: string; }
 
 @Component({
   selector: 'app-projects',
@@ -24,158 +21,62 @@ export interface Item { questions: string; }
 
 
 export class ProjectsComponent implements OnInit {
-  exampleForm: FormGroup;
-  userForm: FormGroup;
-  items: Observable<Item[]>;
-  public userID: string;
+  // Values
+  public userID: string;  // User ID
+  userMail: string;
+  textQN = '';  // Text question number
+  multiQN = ''; // Multiple choice question number
+  rateQN = '';  // Rate question number
+  projectName = '';  // Project name
+  success = false; // Creation checker
+  actionName = ''; // Action holder
+  currentProject: any = ''; // Current Project Holder
+  isCurrentProject = false; // Current Project Checker
 
+  // Database value holders
+  answersProject: Observable<any[]>;
+  allProjects: Observable<any[]>;
+  userInfo: Observable<any[]>;
+  allUsers: Observable<any[]>;
+  questionHolder: Observable<any[]>;
 
-  // Tester
-  partLow: Array<any[]>;
-  // End of Tester
-
-// Second Tester
-items2: Observable<any[]>;
-itemsCollection3: AngularFirestoreCollection<any[]>;
-items3: Observable<any[]>;
-item4: Observable<any[]>;
-tirt = [];
-// End of Second Tester
-
-
-
-
-  itemsCollection: AngularFirestoreCollection<Item>;
-  // Alert booleans
-  loading = false;
-  success = false;
-
-  textQN = '';
-  multiQN = '';
-  rateQN = '';
-  projectName = '';
-  testerName = 'test1';
-
-  constructor(
-    private fb: FormBuilder,
-    public afs: AngularFirestore,
-    private afAuth: AngularFireAuth
-     ) {
-    // Current user ID
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userID = user.uid;
-        console.log(this.userID);
-        // IMPORTANTA!!!!!! IMPORTANTA!!!!!!
-        // tslint:disable-next-line:max-line-length
-        this.item4 = this.afs.collection('users').doc(this.userID).collection('questions', ref => ref.where('projectName', '==', this.testerName )).valueChanges();
-        // IMPORTANTA!!!!!! IMPORTANTA!!!!!!
-      }
-    });
-    // Main  IMPORTANTA!!!!!!
-    this.itemsCollection = afs.collection<Item>('tester');
-    this.items = this.itemsCollection.valueChanges();
-    // Main end  IMPORTANTA!!!!!!
-    }
-
-
+  constructor(private fb: FormBuilder,
+              public afs: AngularFirestore,
+              private afAuth: AngularFireAuth,
+              private toastr: ToastrService) { }
 
   // Form creation with values
   ngOnInit() {
-    this.exampleForm = this.fb.group({
-      // Form elements
-      textQuestion1: [],
-      textQuestion2: [],
-      textQuestion3: [] ,
-      textQuestion4: [],
-      textQuestion5: [],
-      multiQuestion1: [],
-      multiQuestion2: [],
-      multiQuestion3: [],
-      multiQuestion4: [],
-      multiQuestion5: [],
-      multiQuestion6: [],
-      multiQuestion7: [],
-      multiQuestion8: [],
-      multiQuestion9: [],
-      multiQuestion10: [],
-      multiQuestion11: [],
-      multiQuestion12: [],
-      multiQuestion13: [],
-      multiQuestion14: [],
-      multiQuestion15: [],
-      rateQuestion1: [],
-      rateQuestion2: [],
-      rateQuestion3: [],
-      rateQuestion4: [],
-      rateQuestion5: [],
-      rateQuestion6: [],
-      rateQuestion7: [],
-      rateQuestion8: [],
-      rateQuestion9: [],
-      rateQuestion10: [],
-      rateQuestion12: [],
-      rateQuestion13: [],
-      rateQuestion14: [],
-      rateQuestion15: [],
-      rateQuestion16: [],
-      rateQuestion17: [],
-      rateQuestion18: [],
-      rateQuestion19: [],
-      rateQuestion20: [],
-      textNum: [],
-      mutliNum: [],
-      rateNum: [],
-      projectName: []
+    // Current user ID
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        // Get current user id
+        this.userID = user.uid;
+        // Project information creation
+        this.allProjects = this.afs.collection('users').doc(this.userID).collection('questions').valueChanges();
+        this.userInfo = this.afs.collection('users', ref => ref.where('uid', '==', this.userID)).valueChanges();
+      }
     });
-    this.userForm = this.fb.group({
-      textAnswer1: [],
-      textAnswer2: [],
-      textAnswer3: [] ,
-      textAnswer4: [],
-      textAnswer5: [],
-      multiAnswer1: [],
-      multiAnswer2: [],
-      multiAnswer3: [],
-      multiAnswer4: [],
-      rateAnswer1: [],
-      rateAnswer2: [],
-      rateAnswer3: [],
-      rateAnswer4: [],
-      rateAnswer5: [],
-    });
+    this.allUsers = this.afs.collection('users').valueChanges();
   }
 
+  // Set the project name
+  setProjectName(holder: string) {
+    this.currentProject = holder;
+  }
 
-  getNum(Tnum: string, Mnum: string, Rnum: string) {
-    this.textQN = Tnum;
-    this.multiQN = Mnum;
-    this.rateQN = Rnum;
-    this.success = true;
+  // UpdateName
+  sendInvitation(id: string, hold: string) {
+
+        // tslint:disable-next-line:max-line-length
+        this.afs.collection('users').doc(id).collection('invitation').doc(this.currentProject).set({ projectName: this.currentProject, hostID: hold});
+        console.log(hold);
+        this.toastr.success('Success');
   }
 
 
 
-
-
-  async onSubmit(proName: string) {
-
-    this.loading = true;
-    const formValue = this.exampleForm.value;
-    const formi = this.userForm.value;
-    console.log(proName);
-
-    // Sending form data to database
-    try {
-      await this.afs.collection('users').doc(this.userID).collection('questions').doc('proName').set(formValue);
-     // await this.afs.collection('users').doc(this.userID).collection<Questions>('form').add(formValue);
-      this.success = true;
-      console.log('success');
-    } catch (err) {
-      console.error(err);
-    }
-
-    this.loading = false;
+  async onSubmit() {
   }
 }
 

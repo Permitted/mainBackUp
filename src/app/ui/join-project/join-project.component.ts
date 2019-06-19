@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 // Auth
 import { AngularFireAuth } from '@angular/fire/auth';
 // Question & Answers Interace
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-join-project',
@@ -35,7 +35,8 @@ export class JoinProjectComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public afs: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private toastr: ToastrService
   ) {
   }
 
@@ -105,13 +106,13 @@ export class JoinProjectComponent implements OnInit {
       await this.afs.collection('users').doc(this.userID).collection('questionsAnswer').doc(proName).set(formValue);
       await this.afs.collection('users').doc(this.userID).collection('questions').doc(proName).update({ isSend: true });
       this.success = true;
+      this.toastr.success('Success');
       console.log('success');
     } catch (err) {
+      this.toastr.error('Error');
       console.error(err);
     }
     this.refresh();
   }
-
-
 
 }

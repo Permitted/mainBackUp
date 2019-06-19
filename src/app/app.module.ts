@@ -33,6 +33,9 @@ import { CreateProjectComponent } from './ui/create-project/create-project.compo
 
 // Scroller
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+// Toastr
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +59,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [AuthService, AuthGuard, { provide: FirestoreSettingsToken, useValue: {} }],
   bootstrap: [AppComponent]

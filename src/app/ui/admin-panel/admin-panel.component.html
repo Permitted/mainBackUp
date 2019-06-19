@@ -1,4 +1,382 @@
 <app-nav-bar></app-nav-bar>
-<p>
-  Admin Panel on construction...
-</p>
+<br>
+
+<div id="top">
+  <h2 class="text-center"> Join Project </h2>
+</div>
+
+
+<!-- Table of Projects -->
+<div class="container upMe">
+  <div class="table table-hover">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Project Details</h3>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let project of testProject | async ; let i = index">
+      <table class="table table-hover">
+        <thead>
+          <!-- Project Details Specifier-->
+          <tr>
+            <th>#</th>
+            <th>Project Name</th>
+            <th>Host ID</th>
+            <th>Attend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Project Details -->
+          <tr>
+            <td> {{ i+1 }}</td>
+            <td>{{ project.projectName }}</td>
+            <td>{{ project.hostID }}</td>
+            <td>
+              <div *ngIf="project.isSend">
+                <button type="button" [disabled]="project.isSend" class="btn btn-success"
+                  (click)="getProject(project.projectName, project.hostID)"> Sent </button>
+              </div>
+              <div *ngIf="!project.isSend">
+                <button type="button" [disabled]="project.isSend" [ngx-scroll-to]="'#starPoint'" class="btn btn-primary"
+                  (click)="getProject(project.projectName, project.hostID)">Send</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Table of Projects End Point-->
+
+
+
+<!-- Questions Start Point-->
+<div id="starPoint"></div>
+<div class="container answerPoint">
+  <hr>
+  <div *ngFor="let item of answersProject | async">
+    <h2 class="text-center headAnswer" *ngIf="1 <= item.textNum || 1 <= item.mutliNum || 1 <= item.rateNum"> Project
+      Form Generator
+      Answer </h2>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <!-- Text Question Part -->
+      <h4 class="text-center" *ngIf="1 <= item.textNum">Text Questions</h4>
+      <hr class="texter">
+      <div *ngIf="1 <= item.textNum">
+        <div class="form-group">
+          <label>> {{item.textQuestion1}} </label>
+          <input type="text" formControlName="textAnswer1" class="form-control">
+          <hr class="texter">
+        </div>
+      </div>
+
+      <div *ngIf="2 <= item.textNum">
+        <div class="form-group">
+          <label>> {{item.textQuestion2}} </label>
+          <input type="text" formControlName="textAnswer2" class="form-control">
+          <hr class="texter">
+        </div>
+      </div>
+
+      <div *ngIf="3 <= item.textNum">
+        <div class="form-group">
+          <label>> {{item.textQuestion3}} </label>
+          <input type="text" formControlName="textAnswer3" class="form-control">
+          <hr class="texter">
+        </div>
+      </div>
+
+      <div *ngIf="4 <= item.textNum">
+        <div class="form-group">
+          <label>> {{item.textQuestion4}} </label>
+          <input type="text" formControlName="textAnswer4" class="form-control">
+          <hr class="texter">
+        </div>
+      </div>
+
+      <div *ngIf="5 <= item.textNum">
+        <div class="form-group">
+          <label>> {{item.textQuestion5}} </label>
+          <input type="text" formControlName="textAnswer5" class="form-control">
+          <hr class="texter">
+        </div>
+      </div>
+      <!-- Text Question Part End -->
+
+      <!-- Multiple Question Part -->
+      <h4 class="text-center headAnswers" *ngIf="1 <= item.mutliNum">Multiple Choice Questions</h4>
+      <hr class="multier">
+      <div *ngIf="1 <= item.mutliNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.multiQuestion1}} </label>
+          <div class="row">
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio1" class="custom-control-input" formControlName="multiAnswer1"
+                  value="{{ item.multiQuestion2 }}">
+                <label class="custom-control-label" for="customRadio1">{{ item.multiQuestion2 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" class="custom-control-input" formControlName="multiAnswer1"
+                  value="{{ item.multiQuestion3 }}">
+                <label class="custom-control-label" for="customRadio2">{{ item.multiQuestion3 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio3" class="custom-control-input" formControlName="multiAnswer1"
+                  value="{{ item.multiQuestion4 }}">
+                <label class="custom-control-label" for="customRadio3">{{ item.multiQuestion4 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio4" class="custom-control-input" formControlName="multiAnswer1"
+                  value="{{ item.multiQuestion5 }}">
+                <label class="custom-control-label" for="customRadio4">{{ item.multiQuestion5 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="multier">
+        </div>
+      </div>
+
+      <div *ngIf="2 <= item.mutliNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.multiQuestion6}} </label>
+          <div class="row">
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio5" class="custom-control-input" formControlName="multiAnswer2"
+                  value="{{ item.multiQuestion7 }}">
+                <label class="custom-control-label" for="customRadio5">{{ item.multiQuestion7 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio6" class="custom-control-input" formControlName="multiAnswer2"
+                  value="{{ item.multiQuestion8 }}">
+                <label class="custom-control-label" for="customRadio6">{{ item.multiQuestion8 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio7" class="custom-control-input" formControlName="multiAnswer2"
+                  value="{{ item.multiQuestion9 }}">
+                <label class="custom-control-label" for="customRadio7">{{ item.multiQuestion9 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio8" class="custom-control-input" formControlName="multiAnswer2"
+                  value="{{ item.multiQuestion10 }}">
+                <label class="custom-control-label" for="customRadio8">{{ item.multiQuestion10 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="multier">
+        </div>
+      </div>
+
+      <div *ngIf="3 <= item.mutliNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.multiQuestion11}} </label>
+          <div class="row">
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio9" class="custom-control-input" formControlName="multiAnswer3"
+                  value="{{ item.multiQuestion12 }}">
+                <label class="custom-control-label" for="customRadio9">{{ item.multiQuestion12 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio10" class="custom-control-input" formControlName="multiAnswer3"
+                  value="{{ item.multiQuestion13 }}">
+                <label class="custom-control-label" for="customRadio10">{{ item.multiQuestion13 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio11" class="custom-control-input" formControlName="multiAnswer3"
+                  value="{{ item.multiQuestion14 }}">
+                <label class="custom-control-label" for="customRadio11">{{ item.multiQuestion14 }}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio12" class="custom-control-input" formControlName="multiAnswer3"
+                  value="{{ item.multiQuestion15 }}">
+                <label class="custom-control-label" for="customRadio12">{{ item.multiQuestion15 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="multier">
+        </div>
+      </div>
+      <!-- Multiple Question Part End -->
+
+      <!-- Rate Question Part -->
+      <h4 class="text-center headAnswers" *ngIf="1 <= item.rateNum">Rate Choice Questions</h4>
+      <hr class="rater">
+      <div *ngIf="1 <= item.rateNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.rateQuestion1}} </label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio13" class="custom-control-input" formControlName="rateAnswer1"
+                  value="{{ item.rateQuestion2 }}">
+                <label class="custom-control-label" for="customRadio13">{{ item.rateQuestion2 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio14" class="custom-control-input" formControlName="rateAnswer1"
+                  value="{{ item.rateQuestion3 }}">
+                <label class="custom-control-label" for="customRadio14">{{ item.rateQuestion3 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio15" class="custom-control-input" formControlName="rateAnswer1"
+                  value="{{ item.rateQuestion4 }}">
+                <label class="custom-control-label" for="customRadio15">{{ item.rateQuestion4 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="rater">
+        </div>
+      </div>
+
+      <div *ngIf="2 <= item.rateNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.rateQuestion5}} </label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio16" class="custom-control-input" formControlName="rateAnswer2"
+                  value="{{ item.rateQuestion6 }}">
+                <label class="custom-control-label" for="customRadio16">{{ item.rateQuestion6 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio17" class="custom-control-input" formControlName="rateAnswer2"
+                  value="{{ item.rateQuestion7 }}">
+                <label class="custom-control-label" for="customRadio17">{{ item.rateQuestion7 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio18" class="custom-control-input" formControlName="rateAnswer2"
+                  value="{{ item.rateQuestion8 }}">
+                <label class="custom-control-label" for="customRadio18">{{ item.rateQuestion8 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="rater">
+        </div>
+      </div>
+
+      <div *ngIf="3 <= item.rateNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.rateQuestion9}} </label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio19" class="custom-control-input" formControlName="rateAnswer3"
+                  value="{{ item.rateQuestion10 }}">
+                <label class="custom-control-label" for="customRadio19">{{ item.rateQuestion10 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio20" class="custom-control-input" formControlName="rateAnswer3"
+                  value="{{ item.rateQuestion11 }}">
+                <label class="custom-control-label" for="customRadio20">{{ item.rateQuestion11 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio21" class="custom-control-input" formControlName="rateAnswer3"
+                  value="{{ item.rateQuestion12 }}">
+                <label class="custom-control-label" for="customRadio21">{{ item.rateQuestion12 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="rater">
+        </div>
+      </div>
+
+      <div *ngIf="4 <= item.rateNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.rateQuestion13}} </label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio22" class="custom-control-input" formControlName="rateAnswer4"
+                  value="{{ item.rateQuestion2 }}">
+                <label class="custom-control-label" for="customRadio22">{{ item.rateQuestion14 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio23" class="custom-control-input" formControlName="rateAnswer4"
+                  value="{{ item.rateQuestion3 }}">
+                <label class="custom-control-label" for="customRadio23">{{ item.rateQuestion15 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio24" class="custom-control-input" formControlName="rateAnswer4"
+                  value="{{ item.rateQuestion4 }}">
+                <label class="custom-control-label" for="customRadio24">{{ item.rateQuestion16 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="rater">
+        </div>
+      </div>
+
+      <div *ngIf="5 <= item.rateNum">
+        <div class="form-group">
+          <label class="multipleaLabel">> {{item.rateQuestion17}} </label>
+          <div class="row">
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio25" class="custom-control-input" formControlName="rateAnswer5"
+                  value="{{ item.rateQuestion2 }}">
+                <label class="custom-control-label" for="customRadio25">{{ item.rateQuestion18 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio26" class="custom-control-input" formControlName="rateAnswer5"
+                  value="{{ item.rateQuestion3 }}">
+                <label class="custom-control-label" for="customRadio26">{{ item.rateQuestion19 }}</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio27" class="custom-control-input" formControlName="rateAnswer5"
+                  value="{{ item.rateQuestion4 }}">
+                <label class="custom-control-label" for="customRadio27">{{ item.rateQuestion20 }}</label>
+              </div>
+            </div>
+          </div>
+          <hr class="rater">
+        </div>
+      </div>
+      <!-- Rate Question Part End -->
+      <button class="btn btn-primary" type="submit">Sumbit Form</button>
+    </form>
+  </div>
+</div>
+<!-- Questions Start Point-->
+<button class="btn btn-info goTop" [ngx-scroll-to]="'#top'"><i class="fas fa-arrow-up"></i></button>

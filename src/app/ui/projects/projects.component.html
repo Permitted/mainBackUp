@@ -1,4 +1,95 @@
 <app-nav-bar></app-nav-bar>
-<br>
 
-<h3>Projects Loading...</h3>
+
+<h3 class="text-center mainHead">Choose a Project</h3>
+<!-- Table of Projects -->
+<div class="container upMe">
+  <div class="table table-hover">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Project Details</h3>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let project of allProjects | async ; let i = index">
+      <table class="table table-hover">
+        <thead>
+          <!-- Project Details Specifier-->
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Text Questions</th>
+            <th>Multiple Choice Questions</th>
+            <th>Rate Questions</th>
+            <th>Attend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Project Details -->
+          <tr>
+            <td>{{ i+1 }}</td>
+            <td>{{ project.projectName }}</td>
+            <td *ngIf="project.textNum == null">0</td>
+            <td *ngIf="project.textNum != null">{{  project.textNum  }}</td>
+            <td *ngIf="project.mutliNum == null">0</td>
+            <td *ngIf="project.mutliNum != null">{{ project.mutliNum  }}</td>
+            <td *ngIf="project.rateNum == null">0</td>
+            <td *ngIf="project.rateNum != null">{{ project.rateNum  }}</td>
+            <td>
+              <div *ngIf="project.projectName != currentProject">
+                <button type="button" [disabled]="false" class="btn btn-success"
+                  (click)="setProjectName(project.projectName)"> Choose </button>
+              </div>
+              <div *ngIf="project.projectName == currentProject">
+                <button type="button" [disabled]="true" [ngx-scroll-to]="'#starPoint'" class="btn btn-primary"
+                  (click)="setProjectName(project.projectName)">Chosen</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Table of Projects End Point-->
+
+<h3 class="text-center">Send Invitation to the Chosen User</h3>
+<div class="container upMe">
+  <div class="table table-hover">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h3>Chosen Project: {{ currentProject }}</h3>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let user of allUsers | async ; let i = index">
+      <div *ngFor="let main of userInfo | async">
+        <table class="table table-hover">
+          <thead>
+            <!-- Profile Details Specifier-->
+            <tr>
+              <th>Name.</th>
+              <th>Surname</th>
+              <th>Email</th>
+              <th>Invate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Profile Details -->
+            <tr>
+              <th>{{user.info.name}}</th>
+              <th>{{user.info.surname}}</th>
+              <th>{{user.email}}</th>
+              <td><button type="button" class="btn btn-danger" (click)="sendInvitation(user.uid, main.uid)"><i
+                    class="far fa-envelope"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Profile Table End Point -->

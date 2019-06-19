@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { Observable, BehaviorSubject } from 'rxjs';
 // Auth
 import { AngularFireAuth } from '@angular/fire/auth';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -36,7 +36,8 @@ export class CreateProjectComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public afs: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private toastr: ToastrService
   ) {
     // Current user ID
     this.afAuth.authState.subscribe(user => {
@@ -104,6 +105,7 @@ export class CreateProjectComponent implements OnInit {
     this.textQN = Tnum;
     this.multiQN = Mnum;
     this.rateQN = Rnum;
+    this.projectName = Pnam;
     this.success = true;
   }
 
@@ -119,9 +121,12 @@ export class CreateProjectComponent implements OnInit {
     // Sending form data to database
     try {
       await this.afs.collection('users').doc(this.userID).collection('questions').doc(proName).set(formValue);
+      await this.afs.collection('projects').doc(this.projectName).set(formValue);
       this.success = true;
+      this.toastr.success('Success');
       console.log('success');
     } catch (err) {
+      this.toastr.error('Error');
       console.error(err);
     }
     this.refresh();
